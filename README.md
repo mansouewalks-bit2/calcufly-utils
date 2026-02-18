@@ -1,8 +1,13 @@
 # calcufly-utils
 
-Lightweight calculator utility functions for finance, health, math, and conversions. Zero dependencies.
+Math, finance, health and unit conversion calculator utilities for Node.js.
 
-Used by [CalcuFly.com](https://calcufly.com) — 600+ free online calculators in 26 languages.
+## Features
+
+- **Math** - Percentage, fraction, ratio, proportion calculators
+- **Finance** - Loan, mortgage, compound interest, ROI calculators
+- **Health** - BMI, BMR, calorie, body fat calculators
+- **Conversion** - Length, weight, temperature, volume converters
 
 ## Installation
 
@@ -10,84 +15,60 @@ Used by [CalcuFly.com](https://calcufly.com) — 600+ free online calculators in
 npm install calcufly-utils
 ```
 
-## Usage
+## Quick Start
 
-```javascript
-const calc = require('calcufly-utils');
+```js
+const { finance, health, math } = require("calcufly-utils");
 
-// Finance
-const loan = calc.mortgage(300000, 6.5, 30);
-console.log(loan.monthly); // $1,896.20
+const payment = finance.mortgage({ principal: 250000, rate: 3.5, years: 25 });
+// { monthly: 1251.68, total: 375504.00, interest: 125504.00 }
 
-const growth = calc.compoundInterest(10000, 7, 10);
-console.log(growth.finalAmount); // $20,096.61
+const bmi = health.bmi({ weight: 75, height: 1.80 });
+// { value: 23.15, category: "Normal" }
 
-// Health
-const body = calc.bmi(75, 175);
-console.log(body.bmi); // 24.49
-console.log(body.category); // "Normal"
-
-const calories = calc.bmr(75, 175, 30, 'male');
-console.log(calories); // 1,728.75
-
-// Conversions
-console.log(calc.convert(100, 'kmToMiles')); // 62.14
-console.log(calc.convert(72, 'fahrenheitToCelsius')); // 22.22
-
-// Math
-console.log(calc.percentage(25, 200)); // 12.5
-console.log(calc.percentageChange(100, 150)); // 50
-
-// Construction
-const slab = calc.concrete(20, 10, 4);
-console.log(slab.cubicYards); // 2.47
+const pct = math.percentage(45, 200);
+// 22.5
 ```
+
+## Online Calculators
+
+Use our **600+ free online calculators** at **[calcufly.com](https://calcufly.com)** - no signup, instant results with charts.
+
+Popular calculators on [calcufly.com](https://calcufly.com):
+- [Mortgage Calculator](https://calcufly.com/en/finance/mortgage-calculator)
+- [BMI Calculator](https://calcufly.com/en/health/bmi-calculator)
+- [Percentage Calculator](https://calcufly.com/en/math/percentage-calculator)
+- [Compound Interest](https://calcufly.com/en/finance/compound-interest-calculator)
+- [Calorie Calculator](https://calcufly.com/en/health/calorie-calculator)
+- [Unit Converter](https://calcufly.com/en/conversion/length-converter)
+- And 600+ more calculators
 
 ## API Reference
 
-### Finance
+### math.percentage(value, total)
+Returns the percentage of value relative to total.
 
-| Function | Description |
-|----------|-------------|
-| `mortgage(principal, rate, years)` | Monthly mortgage payment, total paid, total interest |
-| `compoundInterest(principal, rate, years, compounds?)` | Final amount and total interest earned |
-| `amortization(principal, rate, years)` | Full amortization schedule |
-| `roi(gain, cost)` | Return on investment percentage |
-| `tip(bill, tipPercent, splitWays?)` | Tip amount, total, per person |
+### math.ratio(a, b)
+Simplifies and returns the ratio a:b.
 
-### Health
+### finance.mortgage({ principal, rate, years })
+Calculates monthly payment, total cost, and total interest.
 
-| Function | Description |
-|----------|-------------|
-| `bmi(weightKg, heightCm)` | BMI value and category |
-| `bmr(weightKg, heightCm, age, gender)` | Basal Metabolic Rate |
-| `tdee(bmrValue, activity)` | Total Daily Energy Expenditure |
-| `idealWeight(heightCm, gender)` | Ideal weight (4 formulas) |
+### finance.compoundInterest({ principal, rate, years, compounding })
+Calculates compound interest with configurable compounding frequency.
 
-### Math
+### health.bmi({ weight, height })
+Calculates BMI and returns the WHO category.
 
-| Function | Description |
-|----------|-------------|
-| `percentage(value, total)` | Calculate percentage |
-| `percentageChange(old, new)` | Percentage change |
-| `gcd(a, b)` | Greatest Common Divisor |
-| `lcm(a, b)` | Least Common Multiple |
+### health.bmr({ weight, height, age, gender })
+Calculates Basal Metabolic Rate (Mifflin-St Jeor equation).
 
-### Conversions
+### conversion.length(value, from, to)
+Converts between length units (m, km, mi, ft, in, cm, mm, yd).
 
-```javascript
-calc.convert(value, 'kmToMiles')
-```
-
-Available: `kmToMiles`, `milesToKm`, `cmToInches`, `inchesToCm`, `feetToMeters`, `metersToFeet`, `kgToLbs`, `lbsToKg`, `ozToGrams`, `gramsToOz`, `celsiusToFahrenheit`, `fahrenheitToCelsius`, `celsiusToKelvin`, `kelvinToCelsius`, `litersToGallons`, `gallonsToLiters`, `mlToFlOz`, `flOzToMl`, `kphToMph`, `mphToKph`, `sqftToSqm`, `sqmToSqft`, `acresToHectares`, `hectaresToAcres`
-
-### Construction
-
-| Function | Description |
-|----------|-------------|
-| `concrete(lengthFt, widthFt, depthIn)` | Concrete needed (yards, feet, bags) |
-| `paint(areaSqft, coats?, coverage?)` | Paint gallons needed |
+### conversion.temperature(value, from, to)
+Converts between temperature units (C, F, K).
 
 ## License
 
-MIT - [CalcuFly.com](https://calcufly.com)
+MIT - [calcufly.com](https://calcufly.com)
